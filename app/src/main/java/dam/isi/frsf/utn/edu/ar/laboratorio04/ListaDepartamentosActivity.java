@@ -54,6 +54,8 @@ public class ListaDepartamentosActivity extends AppCompatActivity implements Bus
     @Override
     public void busquedaFinalizada(List<Departamento> listaDepartamento) {
         //TODO implementar
+        departamentosAdapter.addAll(listaDepartamento);
+        departamentosAdapter.notifyDataSetChanged();
     }
 
     @Override

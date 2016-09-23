@@ -28,12 +28,12 @@ public class BuscarDepartamentosTask extends AsyncTask<FormBusqueda,Integer,List
 
     @Override
     protected void onPostExecute(List<Departamento> departamentos) {
+        listener.busquedaFinalizada(departamentos);
     }
 
     @Override
     protected void onProgressUpdate(Integer... values) {
-        listener.busquedaActualizada("departamento "+values[0]);
-
+        listener.busquedaActualizada("departamento "+values[0]+" de "+values[1]);
 
     }
 
@@ -42,7 +42,20 @@ public class BuscarDepartamentosTask extends AsyncTask<FormBusqueda,Integer,List
         List<Departamento> todos = Departamento.getAlojamientosDisponibles();
         List<Departamento> resultado = new ArrayList<Departamento>();
         int contador = 0;
-        Ciudad ciudadBuscada = busqueda[0].getCiudad();
+
+        Ciudad ciudadBuscada = null;
+        if(busqueda[0].getCiudad().equals(null)) {
+            ciudadBuscada = busqueda[0].getCiudad();
+        }
+
+        for (Departamento depto: todos) {
+            if (!ciudadBuscada.equals(null) && depto.getCiudad().equals(ciudadBuscada)){
+                resultado.add(depto);
+            }
+            contador++;
+            publishProgress(contador, todos.size());
+        }
+
         // TODO implementar: buscar todos los departamentos del sistema e ir chequeando las condiciones 1 a 1.
         // si cumplen las condiciones agregarlo a los resultados.
         return resultado;
