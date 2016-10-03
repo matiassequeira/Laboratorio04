@@ -44,13 +44,192 @@ public class BuscarDepartamentosTask extends AsyncTask<FormBusqueda,Integer,List
         int contador = 0;
 
         Ciudad ciudadBuscada = null;
-        if(busqueda[0].getCiudad().equals(null)) {
+        if(!busqueda[0].getCiudad().equals(null)) {
             ciudadBuscada = busqueda[0].getCiudad();
         }
 
+        Boolean permiteFumar = null;
+        if(!busqueda[0].getPermiteFumar().equals(null)){
+            permiteFumar=busqueda[0].getPermiteFumar();
+        }
+
+        Integer cantHuespedes = null;
+        if(!busqueda[0].getHuespedes().equals(null)){
+            cantHuespedes=busqueda[0].getHuespedes();
+        }
+
+        Double precioMin = null;
+        if(!busqueda[0].getPrecioMinimo().equals(null)){
+            precioMin=busqueda[0].getPrecioMinimo();
+        }
+
+        Double precioMax = null;
+        if(!busqueda[0].getPrecioMaximo().equals(null)){
+            precioMax=busqueda[0].getPrecioMaximo();
+        }
+
         for (Departamento depto: todos) {
-            if (!ciudadBuscada.equals(null) && depto.getCiudad().equals(ciudadBuscada)){
-                resultado.add(depto);
+            if (ciudadBuscada!=null && depto.getCiudad().equals(ciudadBuscada)){
+                if(permiteFumar!=null && depto.getNoFumador().equals(permiteFumar) ) {
+                    if (cantHuespedes != null && depto.getCapacidadMaxima().equals(cantHuespedes)) {
+                        if (precioMin !=null && depto.getPrecio()>=precioMin){
+                            if (precioMax!=null && depto.getPrecio()<=precioMax){
+                                resultado.add(depto);
+                            }
+                            else if (precioMax==null){
+                                resultado.add(depto);
+                            }
+                        }
+                        else if (precioMin==null){
+                            if (precioMax!=null && depto.getPrecio()<=precioMax){
+                                resultado.add(depto);
+                            }
+                            else if (precioMax==null){
+                                resultado.add(depto);
+                            }
+                        }
+
+                    }
+                    else if (cantHuespedes==null){
+                        if (precioMin !=null && depto.getPrecio()>=precioMin){
+                            if (precioMax!=null && depto.getPrecio()<=precioMax){
+                                resultado.add(depto);
+                            }
+                            else if (precioMax==null){
+                                resultado.add(depto);
+                            }
+                        }
+                        else if (precioMin==null){
+                            if (precioMax!=null && depto.getPrecio()<=precioMax){
+                                resultado.add(depto);
+                            }
+                            else if (precioMax==null){
+                                resultado.add(depto);
+                            }
+                        }
+                    }
+
+
+                }
+                else if (permiteFumar ==null){
+                    if (cantHuespedes != null && depto.getCapacidadMaxima().equals(cantHuespedes)) {
+                        if (precioMin !=null && depto.getPrecio()>=precioMin){
+                            if (precioMax!=null && depto.getPrecio()<=precioMax){
+                                resultado.add(depto);
+                            }
+                            else if (precioMax==null){
+                                resultado.add(depto);
+                            }
+                        }
+                        else if (precioMin==null){
+                            if (precioMax!=null && depto.getPrecio()<=precioMax){
+                                resultado.add(depto);
+                            }
+                            else if (precioMax==null){
+                                resultado.add(depto);
+                            }
+                        }
+                    }
+                    else if (cantHuespedes==null){
+                        if (precioMin !=null && depto.getPrecio()>=precioMin){
+                            if (precioMax!=null && depto.getPrecio()<=precioMax){
+                                resultado.add(depto);
+                            }
+                            else if (precioMax==null){
+                                resultado.add(depto);
+                            }
+                        }
+                        else if (precioMin==null){
+                            if (precioMax!=null && depto.getPrecio()<=precioMax){
+                                resultado.add(depto);
+                            }
+                            else if (precioMax==null){
+                                resultado.add(depto);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (ciudadBuscada==null){
+                if(permiteFumar!=null && depto.getNoFumador().equals(permiteFumar) ) {
+                    if (cantHuespedes != null && depto.getCapacidadMaxima().equals(cantHuespedes)) {
+                        if (precioMin !=null && depto.getPrecio()>=precioMin){
+                            if (precioMax!=null && depto.getPrecio()<=precioMax){
+                                resultado.add(depto);
+                            }
+                            else if (precioMax==null){
+                                resultado.add(depto);
+                            }
+                        }
+                        else if (precioMin==null){
+                            if (precioMax!=null && depto.getPrecio()<=precioMax){
+                                resultado.add(depto);
+                            }
+                            else if (precioMax==null){
+                                resultado.add(depto);
+                            }
+                        }
+
+                    }
+                    else if (cantHuespedes==null){
+                        if (precioMin !=null && depto.getPrecio()>=precioMin){
+                            if (precioMax!=null && depto.getPrecio()<=precioMax){
+                                resultado.add(depto);
+                            }
+                            else if (precioMax==null){
+                                resultado.add(depto);
+                            }
+                        }
+                        else if (precioMin==null){
+                            if (precioMax!=null && depto.getPrecio()<=precioMax){
+                                resultado.add(depto);
+                            }
+                            else if (precioMax==null){
+                                resultado.add(depto);
+                            }
+                        }
+                    }
+
+
+                }
+                else if (permiteFumar ==null){
+                    if (cantHuespedes != null && depto.getCapacidadMaxima().equals(cantHuespedes)) {
+                        if (precioMin !=null && depto.getPrecio()>=precioMin){
+                            if (precioMax!=null && depto.getPrecio()<=precioMax){
+                                resultado.add(depto);
+                            }
+                            else if (precioMax==null){
+                                resultado.add(depto);
+                            }
+                        }
+                        else if (precioMin==null){
+                            if (precioMax!=null && depto.getPrecio()<=precioMax){
+                                resultado.add(depto);
+                            }
+                            else if (precioMax==null){
+                                resultado.add(depto);
+                            }
+                        }
+                    }
+                    else if (cantHuespedes==null){
+                        if (precioMin !=null && depto.getPrecio()>=precioMin){
+                            if (precioMax!=null && depto.getPrecio()<=precioMax){
+                                resultado.add(depto);
+                            }
+                            else if (precioMax==null){
+                                resultado.add(depto);
+                            }
+                        }
+                        else if (precioMin==null){
+                            if (precioMax!=null && depto.getPrecio()<=precioMax){
+                                resultado.add(depto);
+                            }
+                            else if (precioMax==null){
+                                resultado.add(depto);
+                            }
+                        }
+                    }
+                }
             }
             contador++;
             publishProgress(contador, todos.size());
