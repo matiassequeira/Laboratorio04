@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity
     private EditText txtHuespedes;
     private Switch swFumadores;
     private FormBusqueda frmBusq;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onClick(View view) {
             Intent i = new Intent(MainActivity.this,ListaDepartamentosActivity.class);
+            frmBusq.setHuespedes(Integer.parseInt(txtHuespedes.getText().toString()));
             frmBusq.setPermiteFumar(swFumadores.isSelected());
             i.putExtra("esBusqueda",true);
             i.putExtra("frmBusqueda",frmBusq);

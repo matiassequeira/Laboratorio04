@@ -8,6 +8,7 @@ import java.util.Date;
  */
 public class Reserva implements Serializable {
 
+
     private Integer id;
     private Date fechaInicio;
     private Date fechaFin;
@@ -44,7 +45,6 @@ public class Reserva implements Serializable {
     public Date getFechaFin() {
         return fechaFin;
     }
-
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }

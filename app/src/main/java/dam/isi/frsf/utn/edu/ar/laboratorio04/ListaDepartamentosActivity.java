@@ -4,9 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +21,14 @@ import dam.isi.frsf.utn.edu.ar.laboratorio04.modelo.Departamento;
 import dam.isi.frsf.utn.edu.ar.laboratorio04.utils.BusquedaFinalizadaListener;
 import dam.isi.frsf.utn.edu.ar.laboratorio04.utils.FormBusqueda;
 
-public class ListaDepartamentosActivity extends AppCompatActivity implements BusquedaFinalizadaListener<Departamento> {
+
+public class ListaDepartamentosActivity extends AppCompatActivity implements BusquedaFinalizadaListener<Departamento>, AdapterView.OnItemLongClickListener{
 
     private TextView tvEstadoBusqueda;
     private ListView listaAlojamientos;
     private DepartamentoAdapter departamentosAdapter;
     private List<Departamento> lista;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +37,14 @@ public class ListaDepartamentosActivity extends AppCompatActivity implements Bus
         lista= new ArrayList<>();
         listaAlojamientos= (ListView ) findViewById(R.id.listaAlojamientos);
         tvEstadoBusqueda = (TextView) findViewById(R.id.estadoBusqueda);
+        listaAlojamientos.setOnItemLongClickListener(this);
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Intent intent = getIntent();
+        intent = getIntent();
         Boolean esBusqueda = intent.getExtras().getBoolean("esBusqueda");
         if(esBusqueda){
             FormBusqueda fb = (FormBusqueda ) intent.getSerializableExtra("frmBusqueda");
@@ -51,10 +59,14 @@ public class ListaDepartamentosActivity extends AppCompatActivity implements Bus
         listaAlojamientos.setAdapter(departamentosAdapter);
     }
 
+
+
     @Override
     public void busquedaFinalizada(List<Departamento> listaDepartamento) {
         //TODO implementar
-        departamentosAdapter.addAll(listaDepartamento);
+        lista.clear();
+        lista.addAll(listaDepartamento);
+        //departamentosAdapter.addAll(listaDepartamento);
         departamentosAdapter.notifyDataSetChanged();
     }
 
@@ -63,4 +75,20 @@ public class ListaDepartamentosActivity extends AppCompatActivity implements Bus
         tvEstadoBusqueda.setText(" Buscando..."+msg);
     }
 
+
+
+    public void efectuarReserva(View v) {
+
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        Departamento deptoSeleccionado= departamentosAdapter.getItem(position);
+
+        Intent i = new Intent(this,AltaReservaActivity.class);
+        i.putExtra("deptoSeleccionado",deptoSeleccionado);
+        startActivity(i);
+        finish();
+        return false;
+    }
 }

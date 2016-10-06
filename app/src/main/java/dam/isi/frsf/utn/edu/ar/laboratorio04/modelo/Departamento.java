@@ -23,6 +23,14 @@ public class Departamento implements Serializable {
     private Integer cantidadCamas;
     private String telefonoPropietario;
 
+    public Boolean getNoFumador() {
+        return noFumador;
+    }
+
+    public void setNoFumador(Boolean noFumador) {
+        this.noFumador = noFumador;
+    }
+
     private Ciudad ciudad;
     private List<Reserva> reservas;
 

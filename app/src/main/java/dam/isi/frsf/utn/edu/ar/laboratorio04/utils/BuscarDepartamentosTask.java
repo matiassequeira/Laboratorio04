@@ -43,35 +43,20 @@ public class BuscarDepartamentosTask extends AsyncTask<FormBusqueda,Integer,List
         List<Departamento> resultado = new ArrayList<Departamento>();
         int contador = 0;
 
-        Ciudad ciudadBuscada = null;
-        if(!busqueda[0].getCiudad().equals(null)) {
-            ciudadBuscada = busqueda[0].getCiudad();
-        }
+        Ciudad ciudadBuscada =  busqueda[0].getCiudad();
 
-        Boolean permiteFumar = null;
-        if(!busqueda[0].getPermiteFumar().equals(null)){
-            permiteFumar=busqueda[0].getPermiteFumar();
-        }
+        Boolean permiteFumar=busqueda[0].getPermiteFumar();
 
-        Integer cantHuespedes = null;
-        if(!busqueda[0].getHuespedes().equals(null)){
-            cantHuespedes=busqueda[0].getHuespedes();
-        }
+        Integer cantHuespedes=busqueda[0].getHuespedes();
 
-        Double precioMin = null;
-        if(!busqueda[0].getPrecioMinimo().equals(null)){
-            precioMin=busqueda[0].getPrecioMinimo();
-        }
+        Double precioMin=busqueda[0].getPrecioMinimo();
 
-        Double precioMax = null;
-        if(!busqueda[0].getPrecioMaximo().equals(null)){
-            precioMax=busqueda[0].getPrecioMaximo();
-        }
+        Double precioMax=busqueda[0].getPrecioMaximo();
 
         for (Departamento depto: todos) {
             if (ciudadBuscada!=null && depto.getCiudad().equals(ciudadBuscada)){
                 if(permiteFumar!=null && depto.getNoFumador().equals(permiteFumar) ) {
-                    if (cantHuespedes != null && depto.getCapacidadMaxima().equals(cantHuespedes)) {
+                    if (cantHuespedes != null && depto.getCapacidadMaxima()>=cantHuespedes) {
                         if (precioMin !=null && depto.getPrecio()>=precioMin){
                             if (precioMax!=null && depto.getPrecio()<=precioMax){
                                 resultado.add(depto);
@@ -112,7 +97,7 @@ public class BuscarDepartamentosTask extends AsyncTask<FormBusqueda,Integer,List
 
                 }
                 else if (permiteFumar ==null){
-                    if (cantHuespedes != null && depto.getCapacidadMaxima().equals(cantHuespedes)) {
+                    if (cantHuespedes != null && depto.getCapacidadMaxima()>=cantHuespedes) {
                         if (precioMin !=null && depto.getPrecio()>=precioMin){
                             if (precioMax!=null && depto.getPrecio()<=precioMax){
                                 resultado.add(depto);
@@ -152,7 +137,7 @@ public class BuscarDepartamentosTask extends AsyncTask<FormBusqueda,Integer,List
             }
             else if (ciudadBuscada==null){
                 if(permiteFumar!=null && depto.getNoFumador().equals(permiteFumar) ) {
-                    if (cantHuespedes != null && depto.getCapacidadMaxima().equals(cantHuespedes)) {
+                    if (cantHuespedes != null && depto.getCapacidadMaxima()>=cantHuespedes) {
                         if (precioMin !=null && depto.getPrecio()>=precioMin){
                             if (precioMax!=null && depto.getPrecio()<=precioMax){
                                 resultado.add(depto);
@@ -193,7 +178,7 @@ public class BuscarDepartamentosTask extends AsyncTask<FormBusqueda,Integer,List
 
                 }
                 else if (permiteFumar ==null){
-                    if (cantHuespedes != null && depto.getCapacidadMaxima().equals(cantHuespedes)) {
+                    if (cantHuespedes != null && depto.getCapacidadMaxima()>=cantHuespedes) {
                         if (precioMin !=null && depto.getPrecio()>=precioMin){
                             if (precioMax!=null && depto.getPrecio()<=precioMax){
                                 resultado.add(depto);
@@ -232,9 +217,10 @@ public class BuscarDepartamentosTask extends AsyncTask<FormBusqueda,Integer,List
                 }
             }
             contador++;
+
             publishProgress(contador, todos.size());
         }
-
+        Log.d("BuscarDepartamentosTask","ciudades buscadas"+contador);
         // TODO implementar: buscar todos los departamentos del sistema e ir chequeando las condiciones 1 a 1.
         // si cumplen las condiciones agregarlo a los resultados.
         return resultado;
