@@ -17,11 +17,15 @@ import java.util.Date;
 
 import dam.isi.frsf.utn.edu.ar.laboratorio04.modelo.Departamento;
 import dam.isi.frsf.utn.edu.ar.laboratorio04.modelo.Reserva;
+import dam.isi.frsf.utn.edu.ar.laboratorio04.modelo.Usuario;
+import dam.isi.frsf.utn.edu.ar.laboratorio04.utils.AlarmaReserva;
 
 public class AltaReservaActivity extends AppCompatActivity implements View.OnClickListener {
     EditText txtFechaInicio;
     EditText txtFechaFin;
     Departamento depto;
+    Intent intent;
+    Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +40,9 @@ public class AltaReservaActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onStart() {
         super.onStart();
-        Intent intent = getIntent();
+        intent = getIntent();
         depto = (Departamento) intent.getSerializableExtra("deptoSeleccionado");
-
+        usuario= (Usuario) intent.getSerializableExtra("usuario");
     }
 
     @Override
@@ -64,12 +68,21 @@ public class AltaReservaActivity extends AppCompatActivity implements View.OnCli
         Date fechaFin = c1.getTime();
 
         Reserva reserva = new Reserva(depto.getReservas().get(depto.getReservas().size()-1).getId()+1,fechaInicio,fechaFin,depto);
+        reserva.setConfirmada(false);
 
         depto.getReservas().add(reserva);
 
+        usuario.getReservas().add(reserva);
+
         Toast.makeText(v.getContext(), "Reserva creada" , Toast.LENGTH_SHORT).show();
 
-        finish();
+        new AlarmaReserva(this, reserva);
+
+        Intent i = new Intent(this,MainActivity.class);
+        i.putExtra("usuario",usuario);
+        startActivity(i);
+
+       finish();
 
     }
 }

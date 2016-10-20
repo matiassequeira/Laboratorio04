@@ -1,6 +1,7 @@
 package dam.isi.frsf.utn.edu.ar.laboratorio04;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
@@ -16,16 +17,18 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import dam.isi.frsf.utn.edu.ar.laboratorio04.modelo.Departamento;
+import dam.isi.frsf.utn.edu.ar.laboratorio04.modelo.Reserva;
 
-public class DepartamentoAdapter extends ArrayAdapter<Departamento>  {
+public class ReservaAdapter extends ArrayAdapter<Reserva>  {
     private LayoutInflater inflater;
     private Context contexto;
-    private boolean esReserva;
 
-    public DepartamentoAdapter(Context contexto, List<Departamento> items) {
+
+    public ReservaAdapter(Context contexto, List<Reserva> items) {
         super(contexto, R.layout.fila, items);
         inflater = LayoutInflater.from(contexto);
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -35,14 +38,26 @@ public class DepartamentoAdapter extends ArrayAdapter<Departamento>  {
         if (row == null) row = inflater.inflate(R.layout.fila, parent, false);
 
         TextView txtEstadoReserva = (TextView) row.findViewById(R.id.estadoReserva);
+
+        if (this.getItem(position).getConfirmada()){
+            txtEstadoReserva.setText("   Confirmada");
+            txtEstadoReserva.setTextColor(Color.GREEN);
+        }
+        else {
+            txtEstadoReserva.setText("   Pendiente");
+            txtEstadoReserva.setTextColor(Color.YELLOW);
+        }
+
+        Departamento depto= this.getItem(position).getAlojamiento();
+
         TextView txtCiudad = (TextView) row.findViewById(R.id.ciudad);
-        txtCiudad.setText(this.getItem(position).getCiudad().getNombre());
+        txtCiudad.setText(depto.getCiudad().getNombre());
         TextView txtDescripcion = (TextView) row.findViewById(R.id.descripcion);
-        txtDescripcion.setText("Unico!! " + this.getItem(position).getDescripcion());
+        txtDescripcion.setText("Unico!! " + depto.getDescripcion());
         TextView txtPrecio = (TextView) row.findViewById(R.id.precio);
-        txtPrecio.setText("$" + (df.format(this.getItem(position).getPrecio())));
+        txtPrecio.setText("$" + (df.format(depto.getPrecio())));
         TextView txtCapacidad = (TextView) row.findViewById(R.id.capacidadMax);
-        txtCapacidad.setText(this.getItem(position).getCapacidadMaxima()+".");
+        txtCapacidad.setText(depto.getCapacidadMaxima()+".");
         return (row);
 
     }

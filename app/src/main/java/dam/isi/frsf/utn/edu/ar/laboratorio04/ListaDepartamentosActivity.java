@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import dam.isi.frsf.utn.edu.ar.laboratorio04.modelo.Usuario;
 import dam.isi.frsf.utn.edu.ar.laboratorio04.utils.BuscarDepartamentosTask;
 import dam.isi.frsf.utn.edu.ar.laboratorio04.modelo.Departamento;
 import dam.isi.frsf.utn.edu.ar.laboratorio04.utils.BusquedaFinalizadaListener;
@@ -29,6 +30,7 @@ public class ListaDepartamentosActivity extends AppCompatActivity implements Bus
     private DepartamentoAdapter departamentosAdapter;
     private List<Departamento> lista;
     Intent intent;
+    Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +79,6 @@ public class ListaDepartamentosActivity extends AppCompatActivity implements Bus
 
 
 
-    public void efectuarReserva(View v) {
-
-    }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -87,6 +86,7 @@ public class ListaDepartamentosActivity extends AppCompatActivity implements Bus
 
         Intent i = new Intent(this,AltaReservaActivity.class);
         i.putExtra("deptoSeleccionado",deptoSeleccionado);
+        i.putExtra("usuario", (Usuario) intent.getSerializableExtra("usuario"));
         startActivity(i);
         finish();
         return false;

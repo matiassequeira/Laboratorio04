@@ -19,7 +19,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".ListaDepartamentosActivity" />
-        <activity android:name=".AltaReservaActivity"></activity>
+        <activity android:name=".AltaReservaActivity" />
+        <activity android:name=".ListarReservasActivity" />
+        <activity android:name=".ReservaAdapter"> </activity>
+
+        <receiver android:name=".utils.TestReceiver"
+                  android:enabled="true"
+                  android:exported="true">
+        </receiver>
+
     </application>
 
 </manifest>

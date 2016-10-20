@@ -84,4 +84,10 @@ public class Reserva implements Serializable {
         this.confirmada = confirmada;
     }
 
+    public boolean equals(Reserva r){
+        if (this.id == r.getId()){
+            return true;
+        }
+        else {return false;}
+    }
 }

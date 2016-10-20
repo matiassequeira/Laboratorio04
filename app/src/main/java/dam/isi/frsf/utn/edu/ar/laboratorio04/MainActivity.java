@@ -24,9 +24,12 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import dam.isi.frsf.utn.edu.ar.laboratorio04.modelo.Ciudad;
+import dam.isi.frsf.utn.edu.ar.laboratorio04.modelo.Reserva;
+import dam.isi.frsf.utn.edu.ar.laboratorio04.modelo.Usuario;
 import dam.isi.frsf.utn.edu.ar.laboratorio04.utils.FormBusqueda;
 
 public class MainActivity extends AppCompatActivity
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity
     private EditText txtHuespedes;
     private Switch swFumadores;
     private FormBusqueda frmBusq;
+    private static Usuario usuario; // creamos un usuario ficticio para setearle la reserva
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        usuario= new Usuario();
+        usuario.setId(new Integer(1));
+        usuario.setCorreo("usuario@android.com");
+        usuario.setReservas(new ArrayList<Reserva>());
 
         frmBusq= new FormBusqueda();
         txtHuespedes = (EditText) findViewById(R.id.cantHuespedes);
@@ -80,6 +89,17 @@ public class MainActivity extends AppCompatActivity
         btnBuscar.setOnClickListener(btnBusarListener);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = getIntent();
+        if ((Usuario) intent.getSerializableExtra("usuario") != null){
+            usuario = (Usuario) intent.getSerializableExtra("usuario");
+        }
+
+
+    }
+
     private View.OnClickListener btnBusarListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -88,6 +108,7 @@ public class MainActivity extends AppCompatActivity
             frmBusq.setPermiteFumar(swFumadores.isSelected());
             i.putExtra("esBusqueda",true);
             i.putExtra("frmBusqueda",frmBusq);
+            i.putExtra("usuario", usuario);
             startActivity(i);
         }
     };
@@ -176,6 +197,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_perfil:
                 break;
             case R.id.nav_reservas:
+                Intent intent = new Intent(MainActivity.this,ListarReservasActivity.class);
+                intent.putExtra("usuario",usuario);
+                startActivity(intent);
                 break;
             case R.id.nav_destinos:
                 break;
@@ -184,5 +208,13 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public static void actualizarReserva(Reserva r){
+        for(Reserva reserva: usuario.getReservas()){
+            if (r.equals(reserva)){
+                no anda el actualizar, hacer un debug y mirar estas variables
+                reserva=r;
+            }
+        }
     }
 }
