@@ -85,9 +85,10 @@ public class Reserva implements Serializable {
     }
 
     public boolean equals(Reserva r){
-        if (this.id == r.getId()){
-            return true;
-        }
-        else {return false;}
+        int estaReserva = this.id;
+        int otraReserva= r.id;
+        boolean evaluar = false;
+        evaluar= estaReserva==otraReserva;
+        return evaluar;
     }
 }

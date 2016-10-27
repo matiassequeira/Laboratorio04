@@ -76,7 +76,7 @@ public class AltaReservaActivity extends AppCompatActivity implements View.OnCli
 
         Toast.makeText(v.getContext(), "Reserva creada" , Toast.LENGTH_SHORT).show();
 
-        new AlarmaReserva(this, reserva);
+        new AlarmaReserva(this, reserva,usuario);
 
         Intent i = new Intent(this,MainActivity.class);
         i.putExtra("usuario",usuario);

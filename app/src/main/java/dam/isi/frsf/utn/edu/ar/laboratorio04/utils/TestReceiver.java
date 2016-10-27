@@ -13,6 +13,7 @@ import dam.isi.frsf.utn.edu.ar.laboratorio04.ListarReservasActivity;
 import dam.isi.frsf.utn.edu.ar.laboratorio04.MainActivity;
 import dam.isi.frsf.utn.edu.ar.laboratorio04.R;
 import dam.isi.frsf.utn.edu.ar.laboratorio04.modelo.Reserva;
+import dam.isi.frsf.utn.edu.ar.laboratorio04.modelo.Usuario;
 
 /**
  * Created by Matias on 14/10/2016.
@@ -29,14 +30,20 @@ public class TestReceiver extends BroadcastReceiver {
             AlarmaReserva.cancelarAlarma();
 
             Reserva reserva = (Reserva) intent.getSerializableExtra("reserva");
-            reserva.setConfirmada(true);
+            Usuario usuario = (Usuario) intent.getSerializableExtra("usuario");
+
+            usuario.getReservas().get(usuario.getReservas().size()-1).setConfirmada(true);
+
             MainActivity.actualizarReserva(reserva);
+
 
             String ns= Context.NOTIFICATION_SERVICE;
             NotificationManager notifmanager= (NotificationManager) context.getSystemService(ns);
 
             Intent i= new Intent(context, ListarReservasActivity.class);
-            PendingIntent pi = PendingIntent.getActivity(context, 0, i, 0);
+            i.putExtra("usuario",usuario);
+            //PendingIntent pi = PendingIntent.getActivity(context, 0, i, 0);
+            PendingIntent pi = PendingIntent.getActivity(context, reserva.getId(), i, PendingIntent.FLAG_ONE_SHOT);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context.getApplicationContext())
                     .setSmallIcon(R.mipmap.ic_launcher)

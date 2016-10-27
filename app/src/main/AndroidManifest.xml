@@ -21,13 +21,15 @@
         <activity android:name=".ListaDepartamentosActivity" />
         <activity android:name=".AltaReservaActivity" />
         <activity android:name=".ListarReservasActivity" />
-        <activity android:name=".ReservaAdapter"> </activity>
+        <activity android:name=".ReservaAdapter" />
 
-        <receiver android:name=".utils.TestReceiver"
-                  android:enabled="true"
-                  android:exported="true">
-        </receiver>
+        <receiver
+            android:name=".utils.TestReceiver"
+            android:enabled="true"
+            android:exported="true" />
 
+        <activity android:name=".PreferenciasFragment" />
+        <activity android:name=".PreferenciasActivity"></activity>
     </application>
 
 </manifest>

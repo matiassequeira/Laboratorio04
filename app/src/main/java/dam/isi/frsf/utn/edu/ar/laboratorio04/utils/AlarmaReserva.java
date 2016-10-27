@@ -7,6 +7,7 @@ import android.content.Intent;
 import java.util.*;
 
 import dam.isi.frsf.utn.edu.ar.laboratorio04.modelo.Reserva;
+import dam.isi.frsf.utn.edu.ar.laboratorio04.modelo.Usuario;
 
 /**
  * Created by Matias on 14/10/2016.
@@ -15,15 +16,19 @@ public class AlarmaReserva {
 
     static Context contexto;
     static Reserva reserva;
+    static Usuario usuario;
 
-    public AlarmaReserva (Context context,Reserva res){
+    public AlarmaReserva (Context context,Reserva res, Usuario user){
 
         contexto=context;
         reserva=res;
+        usuario=user;
 
         //Obtener un intent para invocar al receptor
         Intent intent = new Intent(context, TestReceiver.class);
         intent.putExtra("reserva", reserva);
+        intent.putExtra("usuario", usuario);
+
 
         PendingIntent pi = PendingIntent.getBroadcast(context,reserva.getId(),intent,0);
 

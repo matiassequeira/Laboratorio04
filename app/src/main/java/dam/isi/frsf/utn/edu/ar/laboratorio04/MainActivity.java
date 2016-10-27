@@ -2,9 +2,7 @@ package dam.isi.frsf.utn.edu.ar.laboratorio04;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.SwitchCompat;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -46,11 +44,15 @@ public class MainActivity extends AppCompatActivity
     private Switch swFumadores;
     private FormBusqueda frmBusq;
     private static Usuario usuario; // creamos un usuario ficticio para setearle la reserva
+    private PreferenceManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        manager.setDefaultValues(this, R.xml.preferences, false);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -195,6 +197,8 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_ofertas:
                 break;
             case R.id.nav_perfil:
+                Intent in = new Intent(MainActivity.this,PreferenciasActivity.class);
+                startActivity(in);
                 break;
             case R.id.nav_reservas:
                 Intent intent = new Intent(MainActivity.this,ListarReservasActivity.class);
@@ -211,9 +215,8 @@ public class MainActivity extends AppCompatActivity
     }
     public static void actualizarReserva(Reserva r){
         for(Reserva reserva: usuario.getReservas()){
-            if (r.equals(reserva)){
-                no anda el actualizar, hacer un debug y mirar estas variables
-                reserva=r;
+            if (reserva.equals(r)){
+                reserva.setConfirmada(true);
             }
         }
     }
