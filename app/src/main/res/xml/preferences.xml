@@ -23,6 +23,13 @@
         android:maxLines="1"
         />
 
+    <RingtonePreference
+        android:key="ringtone"
+        android:title="Ringtone Notificacion"
+        android:ringtoneType="notification"
+        android:defaultValue="content://settings/system/notification_sound"
+        />
+
 </PreferenceScreen>
 
 
