@@ -1,12 +1,16 @@
 package dam.isi.frsf.utn.edu.ar.laboratorio04.utils;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -27,7 +31,7 @@ public class TestReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent){
-        if(/*System.currentTimeMillis() % 3 == 0*/true) {
+        if(System.currentTimeMillis() % 3 == 0) {
 
             Log.d("Etiqueta", "Entra al onReceive");
 
@@ -49,15 +53,18 @@ public class TestReceiver extends BroadcastReceiver {
             PendingIntent pi = PendingIntent.getActivity(context, reserva.getId(), i, PendingIntent.FLAG_ONE_SHOT);
 
             //seteando ringotne a la notificacion
-            RingtoneManager rinmanager = null;
-            Uri uri = rinmanager.getRingtoneUri(rinmanager.TYPE_NOTIFICATION);
+            SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(context);
+            String ringtone = prefs.getString("ringtone", "content://settings/system/notification_sound");
+            Uri UriRingtone = Uri.parse(ringtone);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context.getApplicationContext())
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentIntent(pi)
                     .setContentTitle("Confirmacion reserva")
                     .setContentText("La reserva ha sido confirmada!")
-                    .setSound(uri);
+                    .setAutoCancel(true)
+                    .setSound(UriRingtone);
+
 
             notifmanager.notify(1, builder.build());
         }

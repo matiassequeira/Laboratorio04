@@ -34,7 +34,7 @@ public class AlarmaReserva {
 
         // Programar la alarma
         AlarmManager am =(AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, 1000, 5*1000, pi);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, 1000, 15*1000, pi);
     }
 
     public static void cancelarAlarma(){
